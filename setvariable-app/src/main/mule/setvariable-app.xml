@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="setvariable-appFlow" doc:id="5ed0d944-71db-4942-a323-58593ff3548d" >
+		<http:listener doc:name="Listener" doc:id="ffd60caf-64b7-450f-91c0-ff56fc14704d" path="${http.path}" config-ref="HTTP_Listener_config"/>
+		<flow-ref doc:name="Flow Reference" doc:id="e471879f-eff0-4e2a-99d0-d5947b1d4b6c" name="setvariable-appSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="bccc818e-7678-40a1-bd42-0a14bf86b22a" message='#[vars.mypayload]'/>
+	</flow>
+	<sub-flow name="setvariable-appSub_Flow" doc:id="22166f57-731c-4585-ba90-b0586bf7f244" >
+		<set-variable value="Evelyn" doc:name="firstName" doc:id="48b056a7-7e2f-4411-bde0-9378b75aadaa" variableName="firstName" />
+		<set-variable value="Sanchez" doc:name="lastName" doc:id="7d8f8746-7dc3-4915-aea0-9a98e8c13f63" variableName="lastName" />
+		<set-variable value='#[vars.firstName ++ " " ++ vars.lastName]' doc:name="mypayload" doc:id="f586665e-d594-4cf0-83ea-cbdc159f5b84" variableName="mypayload" />
+	</sub-flow>
+</mule>
